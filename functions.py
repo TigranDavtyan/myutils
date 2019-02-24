@@ -16,8 +16,21 @@ def great_circle_distance(pt1, pt2):
     return c*1000
 
 
-def moving_average(array, window=3):
+def moving_average(arr, window=3):
      import numpy as np
-     ret = np.cumsum(array, dtype=float)
+     ret = np.cumsum(arr, dtype=float)
      ret[window:] = ret[window:] - ret[:-window]
      return ret[window - 1:] / window
+
+
+def moving_std(arr,window,centered=False):
+     import numpy as np
+     stds = []
+     if centered:
+          margin = int(window/2)
+          for i in range(margin,len(arr)- margin):
+               stds.append(np.std(arr[i-margin:i+margin]))
+     else:
+          for i in range(window,len(arr)):
+               stds.append(np.std(arr[i-window:i]))
+     return np.array(stds)
