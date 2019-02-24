@@ -34,3 +34,17 @@ def moving_std(arr,window,centered=False):
           for i in range(window,len(arr)):
                stds.append(np.std(arr[i-window:i]))
      return np.array(stds)
+
+
+def interpolate_two_points_by_line(pt1,pt2,n=8):
+     """"Return a list of nb_points equally spaced points
+     between pt1 and pt2
+     If we have 8 intermediate points, we have 8+1=9 spaces
+     between pt1 and pt2"""
+
+     x_spacing = (pt2[0] - pt1[0]) / (n + 1)
+     y_spacing = (pt2[1] - pt1[1]) / (n + 1)
+
+     return [[pt1[0] + i * x_spacing, pt1[1] +  i * y_spacing] for i in range(1, n+1)]
+
+
