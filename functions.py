@@ -39,8 +39,8 @@ def moving_std(arr,window,centered=False):
           for i in range(margin,len(arr)- margin):
                stds.append(np.std(arr[i-margin:i+margin]))
      else:
-          for i in range(window,len(arr)):
-               stds.append(np.std(arr[i-window:i]))
+          for i in range(window-1,len(arr)):
+               stds.append(np.std(arr[i-window+1:i+1]))
      return np.array(stds)
 
 def interpolate_two_points_by_line(pt1,pt2,n=8):
@@ -133,7 +133,7 @@ def json_to_dict(filename):
 def compare_datetimes(dt1,dt2):
      '''Takes two datetime objects
      Checks if they are equal by second precision'''
-    return dt1.year == dt2.year and dt1.month == dt2.month and dt1.day == dt2.day and dt1.hour == dt2.hour and dt1.minute == dt2.minute and dt1.second == dt2.second
+     return dt1.year == dt2.year and dt1.month == dt2.month and dt1.day == dt2.day and dt1.hour == dt2.hour and dt1.minute == dt2.minute and dt1.second == dt2.second
 
 def show_percentages(names,values,maximums):
      from IPython.display import clear_output
@@ -146,11 +146,10 @@ def show_percentages(names,values,maximums):
                t = '{}   |{}{}|  {}%'.format(name,'█'*int(p),('▄' if h else '')+'_'*(100 - int(p) - (1 if h else 0) ),round(p,1))
                print(t,flush=True)
 
-def send_email(text=45,from = 'tigodav@gmail.com',to = 'tigrandavtyan97@gmail.com'):
+def send_email(text=45,FROM = 'tigodav@gmail.com',to = 'tigrandavtyan97@gmail.com'):
     import smtplib
     from getpass import getpass
 
-    FROM = from
     TO = recipient if isinstance(to, list) else [to]
     SUBJECT = 'Email from python'
     TEXT = str(text)
