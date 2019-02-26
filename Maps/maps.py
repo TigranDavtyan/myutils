@@ -29,6 +29,9 @@ class MAPS:
         y = int(abs(point[1]-self.boundaries['north'])/(self.boundaries['north']-self.boundaries['south'])*self.map_shape[1])
         return (x,y)
 
+    def ptol(point):#takes x,y returns lon,lat
+        return [point[0]/self.scale+self.boundaries['west'],(self.map_shape[1]-point[1])/scale+self.boundaries['south']]
+
     def check_boundaries(self,loc):
         if loc[0]<self.boundaries['south'] or loc[0]>self.boundaries['north'] or loc[1]<self.boundaries['west'] or loc[1]>self.boundaries['east']:
             return False
