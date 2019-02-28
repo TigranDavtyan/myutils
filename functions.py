@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from dateutil.parser import parse
 from pprint import pprint
+from winsound import Beep as beep
 
 def distance(origin, destination):
      '''Takes two [x,y] points
@@ -99,10 +100,6 @@ def upper_and_lower_stds(arr):
      lstd = np.sqrt(np.mean((arr[arr<mean]-mean)**2))
      return lstd,np.std(arr),ustd
 
-def beep(hz = 2500,duration = 1000):
-     import winsound
-     winsound.Beep(hz,duration)
-
 def random_point_within(poly,n):
      '''from shapely.geometry import Polygon, Point
           yerevan = Polygon([(40.226411, 44.451349), (40.216974, 44.582842), (40.142085, 44.540785), (40.155469, 44.467657)])
@@ -147,26 +144,26 @@ def show_percentages(names,values,maximums):
                print(t,flush=True)
 
 def send_email(text='45',FROM = 'tigodav@gmail.com',to = 'tigrandavtyan97@gmail.com'):
-    import smtplib
-    from getpass import getpass
+     import smtplib
+     from getpass import getpass
 
-    TO = recipient if isinstance(to, list) else [to]
-    SUBJECT = 'Email from python'
-    TEXT = str(text)
+     TO = recipient if isinstance(to, list) else [to]
+     SUBJECT = 'Email from python'
+     TEXT = str(text)
 
-    # Prepare actual message
-    message = """From: %s\nTo: %s\nSubject: %s\n\n%s
-    """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
-    try:
-        server = smtplib.SMTP("smtp.gmail.com", 587)
-        server.ehlo()
-        server.starttls()
-        server.login(FROM, getpass())
-        server.sendmail(FROM, TO, message)
-        server.close()
-        print ('successfully sent the mail')
-    except:
-        print('Failed to send the email')
+     # Prepare actual message
+     message = """From: %s\nTo: %s\nSubject: %s\n\n%s
+     """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
+     try:
+          server = smtplib.SMTP("smtp.gmail.com", 587)
+          server.ehlo()
+          server.starttls()
+          server.login(FROM, getpass())
+          server.sendmail(FROM, TO, message)
+          server.close()
+          print ('successfully sent the mail')
+     except:
+          print('Failed to send the email')
 
 def load_keras_model(filename):
      '''Takes filename (without json or h5 ending)'''
