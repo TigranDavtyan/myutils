@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 import requests
 
-
 import pkg_resources
 resource_package = __name__
 class MAPS:
@@ -100,15 +99,17 @@ class MAPS:
             dist += distance(trip[i-1],trip[i])
         return dist
 
-import osmium
-class NodeLocationsHandler(osmium.SimpleHandler):
-    def __init__(self,node_locations_all):
-        self.node_locations_all = node_locations_all
-        osmium.SimpleHandler.__init__(self)
+try:
+    import osmium
+    class NodeLocationsHandler(osmium.SimpleHandler):
+        def __init__(self,node_locations_all):
+            self.node_locations_all = node_locations_all
+            osmium.SimpleHandler.__init__(self)
 
-    def node(self, n):
-        self.node_locations_all[n.id] = [n.location.lat,n.location.lon]
-
+        def node(self, n):
+            self.node_locations_all[n.id] = [n.location.lat,n.location.lon]
+except:
+    pass
 class OSRM:
     def __init__(self,host='http://127.0.0.1:5000/',get_node_locations = False):
         print('Connecting to osrm backend api . . . ',end = '')

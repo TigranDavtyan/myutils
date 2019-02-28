@@ -39,8 +39,8 @@ def moving_std(arr,window,centered=False):
           for i in range(margin,len(arr)- margin):
                stds.append(np.std(arr[i-margin:i+margin]))
      else:
-          for i in range(window,len(arr)):
-               stds.append(np.std(arr[i-window:i]))
+          for i in range(window-1,len(arr)):
+               stds.append(np.std(arr[i-window+1:i+1]))
      return np.array(stds)
 
 def interpolate_two_points_by_line(pt1,pt2,n=8):
